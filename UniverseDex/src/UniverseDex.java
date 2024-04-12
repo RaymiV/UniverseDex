@@ -223,12 +223,13 @@ public class UniverseDex extends Application {
 		species.setText(specs);
 		species.setStyle("-fx-font: 20pt \"Arial\";");
 
-		Image img = new Image(imagePath, 300, 300, false, false);
+		Image img = new Image(imagePath, 300, 300, true, true);
 		ImageView view = new ImageView(img);
 		view.setPreserveRatio(true);
 		view.setFitWidth(300);
 		view.setFitHeight(300);
 		view.setSmooth(true);
+		view.setPreserveRatio(true);
 		view.setCache(true);
 		view.setX(20);
 		view.setStyle("-fx-border-color: #f00000; -fx-border-radius: 25; -fx-border-width: 5;");
@@ -265,8 +266,11 @@ public class UniverseDex extends Application {
 		
 		typing.getChildren().add(label);
 		typing.getChildren().add(typeOne);
-		typing.getChildren().add(andText);
-		typing.getChildren().add(typeTwo);
+		
+		if(p.typeTwo != "") {
+			typing.getChildren().add(andText);
+			typing.getChildren().add(typeTwo);
+		}
 		
 		String abilities = "Abilities: " + p.abilities;
 		Text abls = new Text(abilities);
@@ -305,7 +309,7 @@ public class UniverseDex extends Application {
 		attackStat.getChildren().add(attackS);
 		
 		HBox defenseStat = new HBox();
-		Text def = new Text("-Denfese: ");
+		Text def = new Text("-Defense: ");
 		def.setStyle("-fx-font: 20pt \"Arial\";");
 		String defense = p.defense;
 		Text defenseS = createStat(defense);
