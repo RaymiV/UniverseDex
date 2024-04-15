@@ -12,9 +12,6 @@ public class Pokemon {
 	public String voiceEntry;
 	public String health, attack, defense, spAttack, spDefense, speed;
 	public String imageName;
-	public int altForm;
-	public boolean hasAltForm;
-	public ArrayList<AlternateForms> pokeAlts;
 	
 	public Pokemon(String [] a) {
 		
@@ -32,12 +29,8 @@ public class Pokemon {
 		this.spAttack = a[11];
 		this.spDefense = a[12];
 		this.speed = a[13];
-		this.altForm = Integer.parseInt(a[14], 10);
-		this.hasAltForm = isTrue(altForm);
 		this.imageName = a[15];
-		this.image = "https://img.pokemondb.net/artwork/" + imageName + ".jpg";
 		
-		System.out.println("Data successfully assigned");
 				
 	}
 	
