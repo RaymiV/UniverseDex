@@ -5,55 +5,34 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class UniverseDex extends Application {
-	public final static String FILEPATH = "./src/data/pokemon.csv"; // TODO: Replace parameter later with actual finished filePath
-	public final static String ALTSPATH = "./src/data/altForms_1.csv";
-	public final static String MEGAALTSPATH = "./src/data/megas.csv";
-	public final static String ALOLAALTSPATH = "./src/data/altForms_1.csv";
+	public final static String FILEPATH = "./src/data/pokemon.csv"; // SWITCH POKEMON DATABASE PATH LINE
+//	public final static String ALTSPATH = "./src/data/altForms_1.csv";
+//	public final static String MEGAALTSPATH = "./src/data/megas.csv";
+//	public final static String ALOLAALTSPATH = "./src/data/altForms_1.csv";
 	public static final String TITLE = "UniverseDex";
 	public static int totalTemps = countTemps(FILEPATH);
-	public static final int NUMS_COLS = 2;
-	public static final int PER_ROW = 5;
-	public static final Image icon = new Image("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAn1BMVEVHcEwPDw4gFhIIDAwfFhIYEQsXEg8BEhEUAgAMDQwKCAkjGBUgGBXxXDrUOzf////RxN8fFBDaPjj3XjoDAAAuHBrazOnxUCXhTjjuVzXCTDBxa3ZOIBmrMi749POFgplDOz3PODaJLCeXNykTFhO9tdSqqKmopML83dhZUlmXk6HybVDl5OS8NTIzKy68ubmFgYR5JyT2oZH0jHikQCt8IvoaAAAADXRSTlMAyyCOTWw6/P3rrI4fPUSOCAAAAYpJREFUKJFlk+tyqyAYRTFJA06PILeo4C2aajTm1un7P9sBMSFp1z9Zs5UPNwA82K4DaAjWW/CbDygblWZZqloJP97UKswV59EM50qGK+82sF2M02kDN96p5HRKMq9Z8bArqPiRkPLkLTP23yzDNjGOkGPylClmTTjvM+cZmXmVmEm7Z6iiaHallwxjXEAzu+SRe+23/6ZxJroFazvF6UjKbx/M9lbe1yBQ9ilJ3iaxSVwEAKbRb+YgxucQQPZHYsceArhPlyNdDjfD+6cMC2ayXOUo/+FuRAdrQxDAvGDpjxi6m8iNcjHGzjkMwCelUN7FjVzLSTTMrhvT5JDST7CliNKDIPV1mEZ0LtrmnlN4oAZTCaprgeTUkfIWC3gwWIHQRdqDr3c7Lcq67LqrcOtCDFVfz2UJb4QIPemOUCov9aDHPt596dD9bHElsai7UdB4Z4mNq9BSo43oyDQgqeMHxvkSCR27iFO99s5W81J9PVV1ea2m3TOSQzX2/Vhpid5LvVwHZHi9Dv8BdAEwG5YuVesAAAAASUVORK5CYII=");
-	public static final Image icon2 = new Image("https://archives.bulbagarden.net/media/upload/9/95/Dream_Master_Ball_Sprite.png");
+	public static final Image icon = new Image("https://archives.bulbagarden.net/media/upload/9/98/Key_Rotom_Pok%C3%A9dex_Sprite.png");
 	
+
 	/**
 	 * int lineCount is defined to be the total number of lines on a text file.
 	 * Method will count how many lines there are in the provided text file and stored that value as lineCount.
@@ -67,7 +46,8 @@ public class UniverseDex extends Application {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while (bufferedReader.readLine() != null) {
-                lineCount++;
+                System.out.println("Loading Pokemon " + lineCount + "...");
+            	lineCount++;
             }
 
             bufferedReader.close();
@@ -77,7 +57,50 @@ public class UniverseDex extends Application {
         return lineCount;
     }
 	
+	public static void main(String[] args) {
+		launch(args);
 	
+	}
+	
+	public static Button createButton(Pokemon p, Button displayPane, Button type1Display, Button type2Display, Button infographics, Button characterInfo, Button displayBackPane, Button displayShinyPane) {
+		
+		String myString = "" + p.NID + " - " + p.name;
+		Button b = new Button();
+		b.setText(myString);
+		b.setMinWidth(300);
+		b.setMinHeight(40);
+		b.setStyle(
+			  "-fx-text-fill: #ffffff; "			// Text Color
+			+ "-fx-font: bold 15pt \"Roboto\"; "	// Text Size & Font
+			+ "-fx-background-color: #000000; "		// Background Color
+			+ "-fx-background-radius: 25; "			// Background Radius
+			+ "-fx-border-color: #0074B7; "			// Background Color
+			+ "-fx-border-radius: 25;  "			// Border Radius
+			+ "-fx-border-width: 3;");				// Border Width
+		
+		String icon = "";
+		if(p.NID < 10) {
+		 icon = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds/ico_3ds_00" + p.NID + ".png";
+		} else if(p.NID >= 10 && p.NID <= 99) {
+			 icon = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds/ico_3ds_0" + p.NID + ".png";
+		} else if(p.NID >= 100) {
+			 icon = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds/ico_3ds_" + p.NID + ".png";
+		}
+		Image iconImage = new Image(icon, 50, 50, true, true);
+		ImageView iconView = new ImageView(iconImage);
+		b.setGraphic(iconView);
+		b.setContentDisplay(ContentDisplay.LEFT);
+		b.setOnMouseEntered(event ->{
+			displayChangeEnter(p, b, displayPane, type1Display, type2Display, infographics, characterInfo, displayBackPane, displayShinyPane);
+		});
+		b.setOnMouseExited(event ->{
+			displayChangeLeave(p, b, displayPane, myString);
+		});
+		
+		return b;
+		
+	}
+
 	/**
 	 * Returns the color (hex code)/symbol for the Pokemon type (as a string) provided.
 	 * The Dictionary named "typing" will be the library holding the data (keys and values).
@@ -108,7 +131,7 @@ public class UniverseDex extends Application {
 		typing.put("rock", "#B6A136");
 		typing.put("ghost", "#735797");
 		typing.put("dragon", "#6F35FC");
-		typing.put("dark", "#58535A"); // 736c75
+		typing.put("dark", "#58535A");
 		typing.put("steel", "#B7B7CE");
 		typing.put("fairy", "#D685AD");
 		typing.put("", "#ffffff");
@@ -144,348 +167,236 @@ public class UniverseDex extends Application {
     }
 	
 	
-	public static String capitalizer(String a) {
-		
-		if (a == null || a.isEmpty()) {
-			return "";
-		}
-		char first = a.charAt(0);
-		char upper = Character.toUpperCase(first);
-		StringBuilder result = new StringBuilder(a);
-		
-		result.setCharAt(0, upper);
-		
-		return result.toString();
-	}
-	
-	public static Text createStat(String a) {
-		int b = Integer.parseInt(a, 10);
-		
-		Text text = new Text(a);
-		
-		if(b < 20) {
-			text.setFill(Color.RED);
-		}else if(b < 50) {
-			text.setFill(Color.ORANGE);
-		}else if(b < 90) {
-			text.setFill(Color.YELLOW);
-		}else if(b < 120) {
-			text.setFill(Color.GREENYELLOW);
-		}else if(b < 150) {
-			text.setFill(Color.GREEN);
-		}else {
-			text.setFill(Color.DARKCYAN);
-		}
-		
-		text.setStyle("-fx-font: bold 20pt \"Arial\";");
-		
-		return text;
-		
-	}
-	
-	public static Button createButton(Pokemon p) {
-		int a = p.NID;
-		String myString = "" + a + " - " + p.name;
-		String imagePath = p.image.toLowerCase();
-		Image img = new Image(imagePath, 100, 100, true, true);
-		ImageView view = new ImageView(img);
-//		view.setPreserveRatio(true);
-		Button b = new Button();
-		b.setText(myString);
-		b.setMinWidth(120);
-		b.setMinHeight(120);
-		b.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 25; -fx-border-color: #f00000; -fx-border-radius: 25;  -fx-font: bold 10pt \"Arial\"; -fx-border-width: 5;");
-		b.setGraphic(view);
-		b.setContentDisplay(ContentDisplay.BOTTOM);
-		b.setOnAction(event ->{
-			
-			DPKMN(p);
-		});
-		
-		return b;
-		
-	}
-	
-	public static void DPKMN(Pokemon p)  {
-		
-		
-		Stage stage = new Stage();
-		String imagePath = p.image.toLowerCase();
-		
-		String title = p.name;
-		String specs = p.species;
-		
-		
-		Text name = new Text();
-		name.setText(title);
-		name.setStyle("-fx-font: bold 20pt \"Arial\";");
-		Text species = new Text();
-		species.setText(specs);
-		species.setStyle("-fx-font: 20pt \"Arial\";");
+//	public static String capitalizer(String a) {
+//		
+//		if (a == null || a.isEmpty()) {
+//			return "";
+//		}
+//		char first = a.charAt(0);
+//		char upper = Character.toUpperCase(first);
+//		StringBuilder result = new StringBuilder(a);
+//		
+//		result.setCharAt(0, upper);
+//		
+//		return result.toString();
+//	}
 
-		Image img = new Image(imagePath, 300, 300, true, true);
+	public static void displayChangeLeave(Pokemon p, Button b, Button displayPane, String myString)  {
+		b.setText(myString);
+		b.setStyle(
+				  "-fx-text-fill: #ffffff; "			// Text Color
+				+ "-fx-font: bold 15pt \"Roboto\"; "	// Text Size & Font
+				+ "-fx-background-color: #000000; "		// Background Color
+				+ "-fx-background-radius: 25; "			// Background Radius
+				+ "-fx-border-color: #0074B7; "			// Background Color
+				+ "-fx-border-radius: 25;  "			// Border Radius
+				+ "-fx-border-width: 3;");				// Border Width
+	}
+	
+	public static void displayChangeEnter(Pokemon p, Button b, Button displayPane, Button type1Display, Button type2Display, Button infographics, Button characterInfo, Button displayBackPane, Button displayShinyPane)  {
+
+		
+		/////////////////////////////////////// TYPE 1 /////////////////////////////////////////////
+
+		String type1 = "";
+		if(p.typeOne.equals("fire")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/1/15/FireIC_BW.png";
+		} else if(p.typeOne.equals("water")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/2/2b/WaterIC_BW.png?20200224205729";
+		} else if(p.typeOne.equals("grass")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/2/23/GrassIC_BW.png?20200224205542";
+		} else if(p.typeOne.equals("electric")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/6/67/ElectricIC_BW.png?20200224205343";
+		} else if(p.typeOne.equals("bug")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/2/2e/BugIC_BW.png?20200224205248";
+		} else if(p.typeOne.equals("ice")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/4/4c/IceIC_RSE.png?20220424143150";
+		} else if(p.typeOne.equals("dark")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/3/35/DarkIC_BW.png?20200224205309";
+		} else if(p.typeOne.equals("dragon")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/a/ad/DragonIC_BW.png?20200224205326";
+		} else if(p.typeOne.equals("psychic")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/6/60/PsychicIC_BW.png?20200224205654";
+		} else if(p.typeOne.equals("ground")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/f/f4/GroundIC_BW.png?20200224205556";
+		} else if(p.typeOne.equals("rock")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/8/85/RockIC_BW.png?20200224210101";
+		} else if(p.typeOne.equals("fairy")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/7/73/FairyIC_Big.png?20170821035827";
+		} else if(p.typeOne.equals("flying")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/8/8e/FlyingIC_BW.png?20200224205954";
+		} else if(p.typeOne.equals("ghost")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/9/99/GhostIC_BW.png?20200224205515";
+		} else if(p.typeOne.equals("steel")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/0/04/SteelIC_BW.png?20200224205713";
+		} else if(p.typeOne.equals("poison")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/b/ba/PoisonIC_BW.png?20200224205528";
+		} else if(p.typeOne.equals("fighting")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/c/c8/FightingIC_BW.png?20200224205358";
+		} else if(p.typeOne.equals("normal")) {
+			type1 = "https://archives.bulbagarden.net/media/upload/2/28/NormalIC_BW.png?20200224205131";
+		}
+		Image type1Image = new Image(type1, 70, 70, true, true);
+		ImageView type1View = new ImageView(type1Image);
+		type1View.setTranslateX(-260);
+		type1View.setTranslateY(160);
+		type1Display.setGraphic(type1View);
+		
+		/////////////////////////////////////// TYPE 2 /////////////////////////////////////////////
+		
+		String type2 = "";
+		if(p.typeTwo.equals("fire")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/1/15/FireIC_BW.png";
+		} else if(p.typeTwo.equals("water")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/2/2b/WaterIC_BW.png?20200224205729";
+		} else if(p.typeTwo.equals("grass")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/2/23/GrassIC_BW.png?20200224205542";
+		} else if(p.typeTwo.equals("electric")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/6/67/ElectricIC_BW.png?20200224205343";
+		} else if(p.typeTwo.equals("bug")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/2/2e/BugIC_BW.png?20200224205248";
+		} else if(p.typeTwo.equals("ice")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/4/4c/IceIC_RSE.png?20220424143150";
+		} else if(p.typeTwo.equals("dark")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/3/35/DarkIC_BW.png?20200224205309";
+		} else if(p.typeTwo.equals("dragon")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/a/ad/DragonIC_BW.png?20200224205326";
+		} else if(p.typeTwo.equals("psychic")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/6/60/PsychicIC_BW.png?20200224205654";
+		} else if(p.typeTwo.equals("ground")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/f/f4/GroundIC_BW.png?20200224205556";
+		} else if(p.typeTwo.equals("rock")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/8/85/RockIC_BW.png?20200224210101";
+		} else if(p.typeTwo.equals("fairy")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/7/73/FairyIC_Big.png?20170821035827";
+		} else if(p.typeTwo.equals("flying")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/8/8e/FlyingIC_BW.png?20200224205954";
+		} else if(p.typeTwo.equals("ghost")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/9/99/GhostIC_BW.png?20200224205515";
+		} else if(p.typeTwo.equals("steel")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/0/04/SteelIC_BW.png?20200224205713";
+		} else if(p.typeTwo.equals("poison")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/b/ba/PoisonIC_BW.png?20200224205528";
+		} else if(p.typeTwo.equals("fighting")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/c/c8/FightingIC_BW.png?20200224205358";
+		} else if(p.typeTwo.equals("normal")) {
+		type2 = "https://archives.bulbagarden.net/media/upload/2/28/NormalIC_BW.png?20200224205131";
+		} else if(p.typeTwo.equals("")) {
+		type2 = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1024px-HD_transparent_picture.png";
+		}
+		Image type2Image = new Image(type2, 70, 70, true, true);
+		ImageView type2View = new ImageView(type2Image);
+		type2Display.setTranslateX(-160);
+		type2Display.setTranslateY(160);
+		type2Display.setGraphic(type2View);
+		
+		/////////////////////////////////////// Gen 5 Animation /////////////////////////////////////////////
+		
+		String imageGif = ("https://play.pokemonshowdown.com/sprites/gen5ani/" + p.imageName.toLowerCase() + ".gif");
+		Image img = new Image(imageGif, 200, 200, true, true);
 		ImageView view = new ImageView(img);
-		view.setPreserveRatio(true);
-		view.setFitWidth(300);
-		view.setFitHeight(300);
-		view.setSmooth(true);
-		view.setPreserveRatio(true);
-		view.setCache(true);
-		view.setX(20);
-		view.setStyle("-fx-border-color: #f00000; -fx-border-radius: 25; -fx-border-width: 5;");
+        view.setTranslateX(-200);
+        view.setTranslateY(10);
+		displayPane.setGraphic(view);
 		
-		VBox present = new VBox();
-		present.setAlignment(Pos.CENTER);		
-		present.getChildren().add(view);
-		present.getChildren().add(name);
-		present.getChildren().add(species);
+		/////////////////////////////////////// Gen 5 Animation Back /////////////////////////////////////////////
 		
-		// Pokemon data
-		VBox data = new VBox();
-		String TP1 = capitalizer(p.typeOne);
-		String TP2 = capitalizer(p.typeTwo);
-		String type1 = typeMatch(TP1);
-		String type2 = typeMatch(TP2);
+		String imageBackGif = ("https://play.pokemonshowdown.com/sprites/gen5ani-back/" + p.imageName.toLowerCase() + ".gif");
 		
-		HBox typing = new HBox();
-		Text label = new Text("Types(s): ");
-		label.setFill(Color.BLACK);
-		label.setStyle("-fx-font: 20pt \"Arial\";");
+		Image imgBack = new Image(imageBackGif, 100, 100, true, true);
+		ImageView viewBack = new ImageView(imgBack);
+        displayBackPane.setGraphic(viewBack);
+        displayBackPane.setContentDisplay(ContentDisplay.BOTTOM);
+        viewBack.setTranslateX(0);
+        viewBack.setTranslateY(-50);
+        
+		displayBackPane.setStyle(
+				"-fx-background-color: transparent; "		// Background Color
+				+ "-fx-background-radius: 25; "			// Background Radius
+				+ "-fx-border-color: transparent; ");			// Background Color
 		
-		Text andText = new Text(" AND ");
-		andText.setFill(Color.BLACK);
-		andText.setStyle("-fx-font: 20pt \"Arial\";");
+		/////////////////////////////////////// Gen 5 Animation Shiny /////////////////////////////////////////////
 		
-		Text typeOne = new Text(TP1);
-		typeOne.setFill(Color.web(type1));
-		typeOne.setStyle("-fx-font: 20pt \"Arial\";");
+		String imageShinyGif = "https://play.pokemonshowdown.com/sprites/gen5ani-shiny/" + p.imageName.toLowerCase() + ".gif";
 		
-		Text typeTwo = new Text(TP2);
-		typeTwo.setFill(Color.web(type2));
-		typeTwo.setStyle("-fx-font: 20pt \"Arial\";");
+		Image imgShiny = new Image(imageShinyGif, 100, 100, true, true);
+		ImageView viewShiny = new ImageView(imgShiny);
+        displayShinyPane.setGraphic(viewShiny);
+        displayShinyPane.setContentDisplay(ContentDisplay.BOTTOM);
+        viewShiny.setTranslateX(0);
+        viewShiny.setTranslateY(50);
+        
+		displayShinyPane.setStyle(
+				"-fx-background-color: transparent; "		// Background Color
+				+ "-fx-background-radius: 25; "			// Background Radius
+				+ "-fx-border-color: transparent; ");			// Background Color
 		
-		typing.getChildren().add(label);
-		typing.getChildren().add(typeOne);
+		/////////////////////////////////////// STYLE /////////////////////////////////////////////
 		
-		if(p.typeTwo != "") {
-			typing.getChildren().add(andText);
-			typing.getChildren().add(typeTwo);
-		}
+		b.setStyle(
+				  "-fx-text-fill: #ffffff; "			// Text Color
+				+ "-fx-font: bold 15pt \"Roboto\"; "	// Text Size & Font
+				+ "-fx-background-color: #d3d3d3; "		// Background Color
+				+ "-fx-background-radius: 25; "			// Background Radius
+				+ "-fx-border-color: #ffff00; "			// Background Color
+				+ "-fx-border-radius: 25;  "			// Border Radius
+				+ "-fx-border-width: 3;");				// Border Width
 		
-		String abilities = "Abilities: " + p.abilities;
-		Text abls = new Text(abilities);
-		abls.setFill(Color.BLACK);
-		abls.setStyle("-fx-font: 20pt \"Arial\";");
+		// Infographic
 		
-		String weight = "Weight(kgs): " + p.weight;
-		Text weighten = new Text(weight);
-		weighten.setFill(Color.BLACK);
-		weighten.setStyle("-fx-font: 20pt \"Arial\";");
+		String infoText = 
+				"National Dex #" + p.NID
+				+ "\nWeight: " + p.weight
+				+ " lbs\nHeight: " + p.height
+				+ "'\n\nStats:\nHP:  " + p.health
+				+ "\nATK:  " + p.attack 
+				+ "\nSP. ATK:  " + p.spAttack 
+				+ "\nDEF:  " + p.defense
+				+ "\nSP. DEF:  " + p.spDefense
+				+ "\nSPD:  " + p.speed 
+				+ "\nTotal:  " + (Integer.parseInt(p.health) + (Integer.parseInt(p.attack)) + (Integer.parseInt(p.spAttack)) + (Integer.parseInt(p.defense)) + (Integer.parseInt(p.spDefense)) + (Integer.parseInt(p.speed)));
 		
-		String height = "Height(meters): " + p.height;
-		Text heighten = new Text(height);
-		heighten.setFill(Color.BLACK);
-		heighten.setStyle("-fx-font: 20pt \"Arial\";");
+		infographics.setText(infoText);
 		
-		String statistics = "Statistics: ";
-		Text stats = new Text(statistics);
-		stats.setFill(Color.BLACK);
-		stats.setStyle("-fx-font: 20pt \"Arial\";");
+		infographics.setStyle(
+				"-fx-text-fill: white; "
+				+ "-fx-font: 16pt \"Lucida Console\";"
+				+ "-fx-background-color: transparent; "		// Background Color
+				+ "-fx-border-color: transparent; ");			// Background Color
 		
-		HBox healthStat = new HBox();
-		Text heal = new Text("-Health: ");
-		heal.setStyle("-fx-font: 20pt \"Arial\";");
-		String health = p.health;
-		Text healthS = createStat(health);
-		healthStat.getChildren().add(heal);
-		healthStat.getChildren().add(healthS);
+		String abilityText = "         " + p.name
+				+ "\n\n        " + p.species;
 		
-		HBox attackStat = new HBox();
-		Text atk = new Text("-Attack: ");
-		atk.setStyle("-fx-font: 20pt \"Arial\";");
-		String attack = p.attack;
-		Text attackS = createStat(attack);
-		attackStat.getChildren().add(atk);
-		attackStat.getChildren().add(attackS);
+		characterInfo.setStyle(
+				"-fx-text-fill: white; "
+				+ "-fx-font: 20pt \"Lucida Console\";"
+				+ "-fx-background-color: transparent; "		// Background Color
+				+ "-fx-border-color: transparent; ");			// Background Color
 		
-		HBox defenseStat = new HBox();
-		Text def = new Text("-Defense: ");
-		def.setStyle("-fx-font: 20pt \"Arial\";");
-		String defense = p.defense;
-		Text defenseS = createStat(defense);
-		defenseStat.getChildren().add(def);
-		defenseStat.getChildren().add(defenseS);
-		
-		HBox spAttackStat = new HBox();
-		Text sAtk = new Text("-Sp. Attack: ");
-		sAtk.setStyle("-fx-font: 20pt \"Arial\";");
-		String spAttack = p.spAttack;
-		Text spAttackS = createStat(spAttack);
-		spAttackStat.getChildren().add(sAtk);
-		spAttackStat.getChildren().add(spAttackS);
-		
-		HBox spDefenseStat = new HBox();
-		Text sDef = new Text("-Sp. Defense: ");
-		sDef.setStyle("-fx-font: 20pt \"Arial\";");
-		String spDefense = p.spDefense;
-		Text spDefenseS = createStat(spDefense);
-		spDefenseStat.getChildren().add(sDef);
-		spDefenseStat.getChildren().add(spDefenseS);
-		
-		HBox speedStat = new HBox();
-		Text sp = new Text("-Speed: ");
-		sp.setStyle("-fx-font: 20pt \"Arial\";");
-		String speed = p.speed;
-		Text speedS = createStat(speed);
-		speedStat.getChildren().add(sp);
-		speedStat.getChildren().add(speedS);
-		
-		int healthPoints = Integer.parseInt(p.health, 10);
-		int attackPoints = Integer.parseInt(p.attack, 10);
-		int defensePoints = Integer.parseInt(p.defense, 10);
-		int spAttackPoints = Integer.parseInt(p.spAttack, 10);
-		int spDefensePoints = Integer.parseInt(p.spDefense, 10);
-		int speedPoints = Integer.parseInt(p.speed, 10);
-		int sum = healthPoints + attackPoints + defensePoints + spAttackPoints + spDefensePoints + speedPoints;
-		
-		String totalStat = "-Total: " + sum;
-		Text total = new Text(totalStat);
-		total.setStyle("-fx-font: bold 20pt \"Arial\";");
-		
-		data.getChildren().add(typing);
-		data.getChildren().add(abls);
-		data.getChildren().add(weighten);
-		data.getChildren().add(heighten);
-		data.getChildren().add(stats);
-		data.getChildren().add(healthStat);
-		data.getChildren().add(attackStat);
-		data.getChildren().add(defenseStat);
-		data.getChildren().add(spAttackStat);
-		data.getChildren().add(spDefenseStat);
-		data.getChildren().add(speedStat);
-		data.getChildren().add(total);
-		
-		
-		
-		
-		
-		GridPane stack = new GridPane();
-		stack.setTranslateY(-50);
-		stack.setHgap(10);
-		stack.setVgap(10);
-		
-		for (int i = 0; i < NUMS_COLS; i++) {
-			
-			ColumnConstraints column = new ColumnConstraints();
-			column.setPercentWidth(100.0 / NUMS_COLS);
-			stack.getColumnConstraints().add(column);
-			
-		
-		}
-		
-		stack.setConstraints(present, 0, 0);
-		stack.getChildren().add(present);
-		stack.setConstraints(data, 1, 0);
-		stack.getChildren().add(data);
-		
-		VBox everything = new VBox();
-		everything.setAlignment(Pos.CENTER);
-		
-		everything.getChildren().add(stack);
-		Button exit = new Button("Close");
-		exit.setTranslateY(50);
-		exit.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 25; -fx-border-color: #808080; -fx-border-radius: 25;  -fx-font: bold 20pt \"Arial\"; -fx-border-width: 1;");
-		exit.setOnAction(event ->{
-			stage.close();
-		});
-		
-		everything.getChildren().add(exit);
-		
-		Scene scene = new Scene(everything, 1200, 600);
-		stage.setTitle(title);
-		stage.setMaxWidth(1200);
-		stage.setMaxHeight(600);
-		stage.setMinWidth(1200);
-		stage.setMinHeight(600);
-		stage.getIcons().add(icon2);
-		stage.setScene(scene);
-		stage.show();
-		
+		characterInfo.setText(abilityText);
+		characterInfo.setContentDisplay(ContentDisplay.RIGHT);
 	}
 	
-	
-	public static void main(String[] args) {
-		launch(args);
-	
-	}
 	
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		
 		Map<Integer, Pokemon> pokemonMap = new HashMap<>();
-		HashSet <AlternateForms> altForms = new HashSet();
 		
-		//Hashset Construction
-		File aForms = new File(ALTSPATH);
-		File megaForms = new File(MEGAALTSPATH);
-		File alolaForms = new File(ALOLAALTSPATH);
-		Scanner altScan = new Scanner(aForms);
-		Scanner megaAlts = new Scanner(megaForms);
-		Scanner alolanAlts = new Scanner(alolaForms);
-		
-		String altFormsLine;
-		
-		
-		while(altScan.hasNext()) {
-			altFormsLine = altScan.nextLine();
-			String [] altSt = readnSplit(altFormsLine);
-			AlternateForms AlternateForms = new AlternateForms(altSt);
-			altForms.add(AlternateForms);
-			
-		}
-		
-		
-		while(megaAlts.hasNextLine()) {
-			altFormsLine = megaAlts.nextLine();
-			String[] altSt  = readnSplit(altFormsLine);
-			AlternateForms AlternateForms = new AlternateForms(altSt);
-			altForms.add(AlternateForms);
-		}
-		
-		while(alolanAlts.hasNextLine()) {
-			altFormsLine = alolanAlts.nextLine();
-			String[] altSt = readnSplit(altFormsLine);
-			AlternateForms AlternateForms = new AlternateForms(altSt);
-			altForms.add(AlternateForms);
-		}
-		
-		
-		int current = 0;
 		int place = 1;
-		int rowIndex = 0;
-		int columIndex = 0;
 		int looking = 1;
 		String currentLine;
 		File f = new File(FILEPATH);
 		
 		try {
 			Scanner s = new Scanner(f);
-			// Initialize gridpane and it's dimensions
-			
-			FlowPane display = new FlowPane();
-//			GridPane display = new GridPane();
-			display.setPadding(new Insets(10));
-			display.setHgap(10);
-			display.setVgap(10);
+	        FlowPane display = new FlowPane(Orientation.HORIZONTAL, 50, 5); 
+	        display.setStyle("-fx-background-color: #222222; -fx-border-color: #222222");
+	        // -fx-background-image: url(); -fx-background-size: 2000; 
+			display.setPadding(new Insets(80, 0, 0, 1000)); // (top/right/bottom/left)
+			display.setAlignment(Pos.TOP_RIGHT);
 			
 			
-			// Set colum constraint
-//			for (int i = 0; i < NUMS_COLS; i++) {
-//	            ColumnConstraints column = new ColumnConstraints();
-//	            column.setPercentWidth(100.0 / NUMS_COLS);
-//	            display.getColumnConstraints().add(column);
-//	        }
-			// was there an ;
 			String [] store;
 			while(s.hasNextLine()) {
 				
@@ -498,53 +409,144 @@ public class UniverseDex extends Application {
 				place++;
 			}
 			
-//			for(AlternateForms p: altForms) {
-//				if(p.NID == pokemonMap.get(p.NID).NID) {
-//					AlternateForms Alt = p;
-//					pokemonMap.get(p.NID).pokeAlts.add(p);
-//				}
-//			}
+	        StackPane root = new StackPane();
+			
+	        // Image Back
+	        Button displayBackPane = new Button();
+//	        root.setStyle("-fx-background-image: url(https://archives.bulbagarden.net/media/upload/2/2d/Box_Heart_HGSS.png); -fx-background-size: 500;");
+
+			String imageBackGif = "https://play.pokemonshowdown.com/sprites/gen5ani-back/bulbasaur.gif";
+			
+			Image imgBack = new Image(imageBackGif, 100, 100, true, true);
+			ImageView viewBack = new ImageView(imgBack);
+	        displayBackPane.setGraphic(viewBack);
+	        displayBackPane.setContentDisplay(ContentDisplay.BOTTOM);
+	        viewBack.setTranslateX(0);
+	        viewBack.setTranslateY(-50);
+	        
+			displayBackPane.setStyle(
+					"-fx-background-color: transparent; "		// Background Color
+					+ "-fx-background-radius: 25; "			// Background Radius
+					+ "-fx-border-color: transparent; ");			// Background Color
+			
+	        // Image Shiny
+	        Button displayShinyPane = new Button();
+
+			String imageShinyGif = "https://play.pokemonshowdown.com/sprites/gen5ani-shiny/bulbasaur.gif";
+			
+			Image imgShiny = new Image(imageShinyGif, 100, 100, true, true);
+			ImageView viewShiny = new ImageView(imgShiny);
+	        displayShinyPane.setGraphic(viewShiny);
+	        displayShinyPane.setContentDisplay(ContentDisplay.BOTTOM);
+	        viewShiny.setTranslateX(0);
+	        viewShiny.setTranslateY(50);
+	        
+			displayShinyPane.setStyle(
+					"-fx-background-color: transparent; "		// Background Color
+					+ "-fx-background-radius: 25; "			// Background Radius
+					+ "-fx-border-color: transparent; ");			// Background Color
+	        
+	        // Image
+			Button displayPane = new Button();
+			displayPane.setStyle("-fx-background-color: transparent");
+
+			String imageGif = "https://play.pokemonshowdown.com/sprites/gen5ani/bulbasaur.gif";
+			
+			Image img = new Image(imageGif, 200, 200, true, true);
+			ImageView view = new ImageView(img);
+	        displayPane.setGraphic(view);
+	        view.setTranslateX(-200);
+	        view.setTranslateY(10);
+	        
+	        // Platform
+			Button platformPane = new Button();
+			platformPane.setStyle("-fx-background-color: transparent");
+			
+	        String platform = "https://static.wikia.nocookie.net/capx/images/e/ec/Basic_Grass.png/revision/latest?cb=20130620230433";
+	        Image platformView = new Image(platform, 300, 300, true, true);
+			ImageView platformDisplay = new ImageView(platformView);
+			platformPane.setGraphic(platformDisplay);
+	        platformDisplay.setTranslateX(-200);
+	        platformDisplay.setTranslateY(90);
+	        
+	        Button type1 = new Button();
+			type1.setStyle("-fx-background-color: transparent");
+			String type1Image = "https://archives.bulbagarden.net/media/upload/2/23/GrassIC_BW.png?20200224205542";
+	        Image type1View = new Image(type1Image, 70, 70, true, true);
+			ImageView type1Display = new ImageView(type1View);
+			type1.setGraphic(type1Display);
+			type1Display.setTranslateX(-260);
+			type1Display.setTranslateY(160);
+			
+			Button type2 = new Button();
+			type2.setStyle("-fx-background-color: transparent");
+			String type2Image = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1024px-HD_transparent_picture.png";
+	        Image type2View = new Image(type2Image, 70, 70, true, true);
+			ImageView type2Display = new ImageView(type2View);
+			type2.setGraphic(type2Display);
+			type2Display.setTranslateX(-160);
+			type2Display.setTranslateY(160);
+			
+			
+			// Infographic
+			
+			Button infographics = new Button();
+			Button characterInfo = new Button();
+
+	        StackPane.setMargin(infographics, new javafx.geometry.Insets(-300, 0, 0, -950));
+	        StackPane.setMargin(characterInfo, new javafx.geometry.Insets(-350, 0, 0, -400));
+			
+			String abilityText = "         " + "Bulbasaur"
+					+ "\n\n        Seed Pokemon";
+	        
+			String infoText = 
+					"National Dex #" + 1
+					+ "\nWeight: " + 6.9 
+					+ " lbs\nHeight: " + 0.7 
+					+ "'\n\nStats:\nHP:  " + 45 
+					+ "\nATK:  " + 49 
+					+ "\nSP. ATK:  " + 49 
+					+ "\nDEF:  " + 65 
+					+ "\nSP. DEF:  " + 65 
+					+ "\nSPD:  " + 45 
+					+ "\nTotal:  " + 318;
+			
+			infographics.setText(infoText);
+			
+			infographics.setStyle(
+					"-fx-text-fill: white; "
+					+ "-fx-font: 16pt \"Lucida Console\";"
+					+ "-fx-background-color: transparent; "		// Background Color
+					+ "-fx-border-color: transparent; ");			// Background Color
+			
+			characterInfo.setText(abilityText);
+			
+			characterInfo.setStyle(
+					"-fx-text-fill: white; "
+					+ "-fx-font: 20pt \"Lucida Console\";"
+					+ "-fx-background-color: transparent; "		// Background Color
+					+ "-fx-border-color: transparent; ");			// Background Color
 			
 			while(looking < pokemonMap.size()) {
 				
-				int blooking = looking;
-				String bName = pokemonMap.get(looking).name;
-				String bColor = typeMatch(pokemonMap.get(looking).typeOne);
-				String bImage = pokemonMap.get(looking).image;
-				
-				Button b = createButton(pokemonMap.get(blooking));
+				Button b = createButton(pokemonMap.get(looking), displayPane, type1, type2, infographics, characterInfo, displayBackPane, displayShinyPane);
 				display.getChildren().add(b);
-//				display.add(b, columIndex, rowIndex);
-//				columIndex++;
-				
-//				if(columIndex == NUMS_COLS) {
-//					columIndex = 0;
-//					rowIndex++;
-//				}
-//				
-//				if(looking % PER_ROW == PER_ROW - 1) {
-//					display.getRowConstraints().add(new RowConstraints()); // adds a new row
-//				}
-				
 				looking++;
 			}
 			
 			ScrollPane scrollPane = new ScrollPane(display);
 			scrollPane.setFitToWidth(true);
-			scrollPane.setFitToHeight(true);
-			Scene primary = new Scene(scrollPane, 750, 750);
-			
-			
-//			Image icon = new Image("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAn1BMVEVHcEwPDw4gFhIIDAwfFhIYEQsXEg8BEhEUAgAMDQwKCAkjGBUgGBXxXDrUOzf////RxN8fFBDaPjj3XjoDAAAuHBrazOnxUCXhTjjuVzXCTDBxa3ZOIBmrMi749POFgplDOz3PODaJLCeXNykTFhO9tdSqqKmopML83dhZUlmXk6HybVDl5OS8NTIzKy68ubmFgYR5JyT2oZH0jHikQCt8IvoaAAAADXRSTlMAyyCOTWw6/P3rrI4fPUSOCAAAAYpJREFUKJFlk+tyqyAYRTFJA06PILeo4C2aajTm1un7P9sBMSFp1z9Zs5UPNwA82K4DaAjWW/CbDygblWZZqloJP97UKswV59EM50qGK+82sF2M02kDN96p5HRKMq9Z8bArqPiRkPLkLTP23yzDNjGOkGPylClmTTjvM+cZmXmVmEm7Z6iiaHallwxjXEAzu+SRe+23/6ZxJroFazvF6UjKbx/M9lbe1yBQ9ilJ3iaxSVwEAKbRb+YgxucQQPZHYsceArhPlyNdDjfD+6cMC2ayXOUo/+FuRAdrQxDAvGDpjxi6m8iNcjHGzjkMwCelUN7FjVzLSTTMrhvT5JDST7CliNKDIPV1mEZ0LtrmnlN4oAZTCaprgeTUkfIWC3gwWIHQRdqDr3c7Lcq67LqrcOtCDFVfz2UJb4QIPemOUCov9aDHPt596dD9bHElsai7UdB4Z4mNq9BSo43oyDQgqeMHxvkSCR27iFO99s5W81J9PVV1ea2m3TOSQzX2/Vhpid5LvVwHZHi9Dv8BdAEwG5YuVesAAAAASUVORK5CYII=");
-			primaryStage.setScene(primary);
-			primaryStage.setResizable(true);
-			primaryStage.setMinWidth(700);
-			primaryStage.setMinHeight(700);
+			scrollPane.setFitToHeight(false);
+			root.getChildren().addAll(scrollPane, platformPane, displayPane, displayBackPane, type1, type2, infographics, characterInfo, displayShinyPane);
+			Scene scene = new Scene(root, 600, 600);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.setMinWidth(1200);
+			primaryStage.setMinHeight(100);
 			primaryStage.getIcons().add(icon);
 			
 			primaryStage.setTitle(TITLE);
-			primaryStage.show();
-			
+			primaryStage.show();	
 			
 		} catch (FileNotFoundException e) {
 			
