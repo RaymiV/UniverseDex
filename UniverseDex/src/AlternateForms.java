@@ -12,8 +12,6 @@ public class AlternateForms {
 	public String voiceEntry;
 	public String health, attack, defense, spAttack, spDefense, speed;
 	public String imageName;
-	public int altForm;
-	public boolean hasAltForm;
 	
 	public AlternateForms(String [] a) {
 		
@@ -31,7 +29,6 @@ public class AlternateForms {
 		this.spAttack = a[11];
 		this.spDefense = a[12];
 		this.speed = a[13];
-		this.altForm = Integer.parseInt(a[14], 10);
 		this.imageName = a[15];
 		this.image = "https://img.pokemondb.net/artwork/" + imageName + ".jpg";
 		
