@@ -1,0 +1,365 @@
+import java.math.BigDecimal;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+
+public class BattleScene {
+	
+	public static void userStartUpDisplay(Button userPlatform, Button userPokemon, Text userName, Text userLevel, ProgressBar userProgressBar, Button userStats, Button menu) {
+		
+        ///// USER 1 PLATFORM /////
+        userPlatform.setStyle("-fx-background-color: transparent");
+		
+        String platform = "https://static.wikia.nocookie.net/capx/images/e/ec/Basic_Grass.png/revision/latest?cb=20130620230433";
+        Image platformView = new Image(platform, 600, 600, true, true);
+		ImageView platformDisplay = new ImageView(platformView);
+		userPlatform.setGraphic(platformDisplay);
+        platformDisplay.setTranslateX(-300);
+        platformDisplay.setTranslateY(120);
+        
+		///// USER POKEMON /////
+        userPokemon.setStyle("-fx-background-color: transparent");
+        
+        String userPokemonString = "https://www.pokencyclopedia.info/sprites/3ds/ani-b_6_shiny/3a-b_-S_006-mega-x__xy.gif";
+        Image userPokemonView = new Image(userPokemonString, 700, 700, true, true);
+		ImageView userPokemonDisplay = new ImageView(userPokemonView);
+		userPokemon.setGraphic(userPokemonDisplay);
+		userPokemonDisplay.setTranslateX(-300);
+		userPokemonDisplay.setTranslateY(-120);
+
+	    ///// STATS USER /////
+
+		userName.setStyle(				  
+				"-fx-fill: white; "
+			  + "-fx-font: bold 16pt \"Lucida Console\"; ");
+		
+		userName.setTranslateX(395);
+		userName.setTranslateY(56);
+		
+		userLevel.setStyle(				  
+				"-fx-fill: white; "
+			  + "-fx-font: bold 16pt \"Lucida Console\"; ");
+		
+		userLevel.setTranslateX(505);
+		userLevel.setTranslateY(56);
+		
+        userStats.setMinSize(300, 80);
+		
+        userStats.setTranslateX(420);
+        userStats.setTranslateY(70);
+        
+		userStats.setStyle(
+				"-fx-background-color: #222222; "
+				+ "-fx-background-radius: 0; "
+				+ "-fx-border-color: #ffffff; "
+				+ "-fx-border-radius: 0;  "
+				+ "-fx-border-width: 3;");
+        
+		String userSymbol = "";
+		
+        userSymbol = "https://raw.githubusercontent.com/msikma/pokesprite/master/items/key-item/key-stone.png";
+        Image userSymbolView = new Image(userSymbol, 40, 40, true, true);
+		ImageView userSymbolDisplay = new ImageView(userSymbolView);
+		
+		userSymbolDisplay.setTranslateX(-110); // Autoset
+		userSymbolDisplay.setTranslateY(-15); // Autoset
+		
+		userStats.setGraphic(userSymbolDisplay);
+		
+	    ///// PROGRESS BAR USER /////
+		
+		userProgressBar.setMinSize(250, 20);
+		userProgressBar.setTranslateX(420);
+		userProgressBar.setTranslateY(85);
+		
+		userProgressBar.setStyle("-fx-accent: limegreen");
+		
+		
+		///// MISC
+		
+//		String iconSymbol = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds_shiny-recolored/ico_3ds-S_006-mega-x.png";
+//        Image iconView = new Image(iconSymbol, 150, 150, true, true);
+//		ImageView iconDisplay = new ImageView(iconView);
+//		
+//		iconDisplay.setTranslateX(-90); // Autoset
+//		iconDisplay.setTranslateY(-15); // Autoset
+//		
+//		menu.setGraphic(iconDisplay);
+		
+		menu.setStyle(
+				"-fx-text-fill: white; "
+				+ "-fx-background-color: #222222; "
+				+ "-fx-background-radius: 0; "
+				+ "-fx-border-color: #ffffff; "
+				+ "-fx-border-radius: 0;  "
+				+ "-fx-border-width: 3;"
+				+ "-fx-font: bold 10pt \"Lucida Console\"; ");
+	}
+	
+	public static void enemyStartUpDisplay(Button enemyPlatform, Button enemyPokemon, Text enemyName, Text enemyLevel, ProgressBar enemyProgressBar, Button enemyStats) {
+		     
+        ///// ENEMY PLATFORM /////
+        enemyPlatform.setStyle("-fx-background-color: transparent");
+        
+        String enemyPlatform1 = "https://static.wikia.nocookie.net/capx/images/e/ec/Basic_Grass.png/revision/latest?cb=20130620230433";
+        Image enemyPlatformView = new Image(enemyPlatform1, 400, 400, true, true);
+		ImageView enemyPlatformDisplay = new ImageView(enemyPlatformView);
+		enemyPlatform.setGraphic(enemyPlatformDisplay);
+		enemyPlatformDisplay.setTranslateX(300);
+		enemyPlatformDisplay.setTranslateY(-0);
+		
+		///// ENEMY POKEMON /////
+
+        enemyPokemon.setStyle("-fx-background-color: transparent");
+        
+        String enemyPokemonString = "https://www.pokencyclopedia.info/sprites/3ds/ani_6_shiny/3ani_-S_384-mega__oras.gif";
+        Image enemyPokemonView = new Image(enemyPokemonString, 300, 300, true, true);
+		ImageView enemyPokemonDisplay = new ImageView(enemyPokemonView);
+		enemyPokemon.setGraphic(enemyPokemonDisplay);
+		enemyPokemonDisplay.setTranslateX(330);
+		enemyPokemonDisplay.setTranslateY(-130);
+		
+	    ///// ENEMY STATS /////
+
+		enemyName.setStyle(
+				"-fx-fill: white; "
+			  + "-fx-font: bold 16pt \"Lucida Console\"; ");
+		enemyName.setTranslateX(-465);
+		enemyName.setTranslateY(-254);
+		
+
+		enemyLevel.setStyle(
+				"-fx-fill: white; "
+			  + "-fx-font: bold 16pt \"Lucida Console\"; ");
+		enemyLevel.setTranslateX(-345);
+		enemyLevel.setTranslateY(-254);
+		
+        enemyStats.setMinSize(300, 80);
+        enemyStats.setTranslateX(-430);
+        enemyStats.setTranslateY(-240);
+        
+        enemyStats.setStyle(
+				"-fx-background-color: #222222; "
+				+ "-fx-background-radius: 0; "
+				+ "-fx-border-color: #ffffff; "
+				+ "-fx-border-radius: 0;  "
+				+ "-fx-border-width: 3;");
+        
+        String enemyMegaSymbol = "https://raw.githubusercontent.com/msikma/pokesprite/master/items/key-item/key-stone.png";
+        Image enemyMegaSymbolView = new Image(enemyMegaSymbol, 40, 40, true, true);
+		ImageView enemyMegaSymbolDisplay = new ImageView(enemyMegaSymbolView);
+		
+		enemyMegaSymbolDisplay.setTranslateX(-110);
+		enemyMegaSymbolDisplay.setTranslateY(-15);
+        
+		enemyStats.setGraphic(enemyMegaSymbolDisplay);
+		
+	    ///// PROGRESS BAR ENEMY /////
+		
+		enemyProgressBar.setMinSize(250, 20);
+		enemyProgressBar.setTranslateX(-430);
+		enemyProgressBar.setTranslateY(-225);
+		
+		enemyProgressBar.setStyle("-fx-accent: limegreen");
+		
+	}
+	
+	public static void BattleDisplay(Button enterButton, Stage primaryStage) {
+		StackPane root = new StackPane();
+		Button menu = new Button();
+		menu.setMaxSize(1200, 175); // Width x Length
+		menu.setTranslateY(220);
+		Button pokemonList = new Button("Pokemon");
+		pokemonList.setTranslateX(-500);
+        root.setStyle("-fx-background-size: 1200; -fx-background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d84e272-ad3b3161-1b6d-4dcd-ab79-cfe351168290.png/v1/fill/w_800,h_480,q_80,strp/pokemon_x_and_y_battle_city__day__background_by_phoenixoflight92_d84e272-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NDgwIiwicGF0aCI6IlwvZlwvMmZiMjgyMWEtMTQwNi00YTFkLTliMDQtNjY2OGYyNzhlOTQ0XC9kODRlMjcyLWFkM2IzMTYxLTFiNmQtNGRjZC1hYjc5LWNmZTM1MTE2ODI5MC5wbmciLCJ3aWR0aCI6Ijw9ODAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.V3f4Jbp-eR-LXUBKoiK9RxEij1-5Q_afvTyLOVrLuBk); -fx-background-color: #222222; -fx-border-color: #222222");
+		
+        Button userPlatform = new Button();
+        Button userPokemon = new Button();
+		Text userName = new Text("Charizard");
+		Text userLevel = new Text("Lv.50");
+        Button userStats = new Button();
+		ProgressBar userProgressBar = new ProgressBar(1.0);
+//		BigDecimal userProgress = new BigDecimal(String.format("%.2f", 0.0).replace(",", "."));
+        
+		userStartUpDisplay(userPlatform, userPokemon, userName, userLevel, userProgressBar, userStats, menu);
+        
+        Button enemyPlatform = new Button();
+        Button enemyPokemon = new Button();
+		Text enemyName = new Text("Rayquaza");
+		Text enemyLevel = new Text("Lv.50");
+        Button enemyStats = new Button();
+		ProgressBar enemyProgressBar = new ProgressBar(1.0);
+		BigDecimal enemyProgress = new BigDecimal(String.format("%.2f", 0.0).replace(",", "."));
+		
+		enemyStartUpDisplay(enemyPlatform, enemyPokemon, enemyName, enemyLevel, enemyProgressBar, enemyStats);
+			
+		/////// POKEMON 1 ICON ///////
+		Button Pokemon1Icon = new Button();
+		Pokemon1Icon.setStyle(
+				"-fx-background-color: transparent; ");
+		String pokemon1Icon = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds_shiny-recolored/ico_3ds-S_006-mega-x.png";
+        Image pokemon1View = new Image(pokemon1Icon, 150, 150, true, true);
+		ImageView pokemon1Display = new ImageView(pokemon1View);
+		
+		pokemon1Display.setTranslateX(-510); // Autoset
+		pokemon1Display.setTranslateY(220); // Autoset
+		
+		Pokemon1Icon.setGraphic(pokemon1Display);
+		
+		/////// POKEMON 2 ICON ///////
+		Button Pokemon2Icon = new Button();
+		Pokemon2Icon.setStyle(
+				"-fx-background-color: transparent; ");
+		String pokemon2Icon = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds_shiny-recolored/ico_3ds-S_681-shield.png";
+        Image pokemon2View = new Image(pokemon2Icon, 150, 150, true, true);
+		ImageView pokemon2Display = new ImageView(pokemon2View);
+		
+		pokemon2Display.setTranslateX(-350); // Autoset
+		pokemon2Display.setTranslateY(220); // Autoset
+		
+		Pokemon2Icon.setGraphic(pokemon2Display);
+		
+		/////// POKEMON 3 ICON ///////
+		Button Pokemon3Icon = new Button();
+		
+		Pokemon3Icon.setStyle(
+				"-fx-background-color: transparent; ");
+		String pokemon3Icon = "https://www.pokencyclopedia.info/sprites/menu-icons/ico_3ds_shiny-recolored/ico_3ds-S_038.png";
+        Image pokemon3View = new Image(pokemon3Icon, 150, 150, true, true);
+		ImageView pokemon3Display = new ImageView(pokemon3View);
+		
+		pokemon3Display.setTranslateX(-190); // Autoset
+		pokemon3Display.setTranslateY(220); // Autoset
+		
+		Pokemon3Icon.setGraphic(pokemon3Display);
+		
+		//
+		
+		Button attackButton1 = new Button("Thunderbolt");
+		attackButton1.setMinSize(130, 75);
+		attackButton1.setTranslateX(300);
+		attackButton1.setTranslateY(180);
+		
+		attackButton1.setStyle(
+				"-fx-text-fill: white;"
+				+ "-fx-background-color: #222222;"
+				+ "-fx-background-radius: 25;"
+				+ "-fx-border-color: #ffffff;"
+				+ "-fx-border-radius: 25;"
+				+ "-fx-border-width: 3;"
+				+ "-fx-font: bold 15pt \"Lucida Sans Typewriter\"; ");
+		attackButton1.setOnAction(event ->{
+			enemyChange(enemyProgress, enemyProgressBar);
+		});
+		
+//		Button attackButton2 = new Button("Attack");
+//		attackButton2.setMinSize(130, 75);
+//		attackButton2.setTranslateX(300);
+//		attackButton2.setTranslateY(180);
+//		
+//		attackButton2.setStyle(
+//				"-fx-text-fill: white;"
+//				+ "-fx-background-color: #222222;"
+//				+ "-fx-background-radius: 25;"
+//				+ "-fx-border-color: #ffffff;"
+//				+ "-fx-border-radius: 25;"
+//				+ "-fx-border-width: 3;"
+//				+ "-fx-font: bold 15pt \"Lucida Sans Typewriter\"; ");
+//		attackButton2.setOnAction(event ->{
+//			enemyChange(enemyProgress, enemyProgressBar);
+//		});
+//		Button attackButton3 = new Button("Attack");
+//		Button attackButton4 = new Button("Attack");
+		
+//		Button pokemonList = new Button("Attack");
+//		attackButton.setTranslateX(-100);
+//		attackButton.setTranslateY(-130);
+//		attackButton.setOnAction(event ->{
+//		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        
+		Scene sceneBattle = new Scene(root, 1200, 600); // Length x Width
+		root.getChildren().addAll(
+				// Display
+				userPlatform,	
+				userPokemon,
+				enemyPlatform,
+				enemyPokemon,
+				// User Stats
+				userStats, 		
+				userName,
+				userLevel,
+				userProgressBar,
+				// Enemy Stats
+				enemyStats,
+				enemyName,
+				enemyLevel,
+				enemyProgressBar,
+				// Menu
+				menu, 			
+				Pokemon1Icon,
+				Pokemon2Icon,
+				Pokemon3Icon,
+				attackButton1,
+//				attackButton2,
+//				attackButton3,
+//				attackButton4,
+				pokemonList
+				);
+		primaryStage.setScene(sceneBattle); // Start-Up
+		
+		primaryStage.setResizable(false);
+		primaryStage.setMinWidth(600);
+		primaryStage.setMinHeight(600);
+		
+		
+		primaryStage.setTitle("Hii");
+		primaryStage.show();
+		
+		pokemonList.setOnMouseEntered(e -> Platform.exit());
+	}
+	
+	public static void enemyChange(BigDecimal enemyProgress, ProgressBar enemyProgressBar) {
+		enemyProgress = new BigDecimal(String.format("%.2f", enemyProgressBar.getProgress() - 0.05));
+		enemyProgressBar.setProgress(enemyProgress.doubleValue());
+		System.out.println(enemyProgressBar.getProgress());
+		
+		if(enemyProgressBar.getProgress() >= .05 && enemyProgressBar.getProgress() <= 1.0) {
+			enemyProgressBar.setStyle("-fx-accent: limegreen");
+		} 
+		if(enemyProgressBar.getProgress() >= 0.25  && enemyProgressBar.getProgress() < 0.50) {
+			enemyProgressBar.setStyle("-fx-accent: orange");
+		} 
+		if(enemyProgressBar.getProgress() > 0.0 && enemyProgressBar.getProgress() < 0.25) {
+			enemyProgressBar.setStyle("-fx-accent: red");
+		}
+//			attackButton.setText(Integer.toString((int)Math.round(progress.doubleValue() * 100)) + "%");
+	 }
+	
+		public static void userChange(BigDecimal userProgress, ProgressBar userProgressBar) {
+			userProgress = new BigDecimal(String.format("%.2f", userProgressBar.getProgress() - 0.05));
+			userProgressBar.setProgress(userProgress.doubleValue());
+			System.out.println(userProgressBar.getProgress());
+			
+			if(userProgressBar.getProgress() >= .05 && userProgressBar.getProgress() <= 1.0) {
+				userProgressBar.setStyle("-fx-accent: limegreen");
+			} 
+			if(userProgressBar.getProgress() >= 0.25  && userProgressBar.getProgress() < 0.50) {
+				userProgressBar.setStyle("-fx-accent: orange");
+			} 
+			if(userProgressBar.getProgress() > 0.0 && userProgressBar.getProgress() < 0.25) {
+				userProgressBar.setStyle("-fx-accent: red");
+			}
+		//			attackButton.setText(Integer.toString((int)Math.round(progress.doubleValue() * 100)) + "%");
+		 }
+		
+}
